@@ -2,7 +2,7 @@ from maze import Maze
 
 
 def main():
-    maze = Maze(5, 5)
+    maze = Maze(25, 25)
     print(maze)
 
 
