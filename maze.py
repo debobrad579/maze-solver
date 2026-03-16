@@ -1,5 +1,7 @@
 import random
 
+from dfs import depth_first_search
+
 
 class Maze:
     def __init__(self, num_rows: int, num_cols: int):
@@ -7,6 +9,12 @@ class Maze:
         self.num_cols = num_cols
         self.matrix = [[1 for _ in range(num_cols)] for _ in range(num_rows)]
         self._generate()
+
+    def dfs(self):
+        path = depth_first_search(self)
+        if path:
+            for row, col in path:
+                self.matrix[row][col] = 2
 
     def _generate(self):
         self.matrix[1][1] = 0
@@ -35,9 +43,12 @@ class Maze:
         string = ""
         for row in self.matrix:
             for cell in row:
-                if cell == 1:
-                    string += "# "
-                else:
-                    string += "  "
+                match cell:
+                    case 1:
+                        string += "# "
+                    case 2:
+                        string += "\033[32m- \033[0m"
+                    case _:
+                        string += "  "
             string += "\n"
         return string
